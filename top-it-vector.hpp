@@ -33,10 +33,10 @@ namespace topit
 template< class T >
 void topit::Vector< T >::pushFront(const T& val)
 {
-  Vector< T > copy(val.getSize() + 1);
+  Vector< T > copy(size_ + 1);
   copy[0] = val;
-  for (size_t i = 0; i < copy.getSize(); i++) {
-    copy[i] = (*this)[i - 1];
+  for (size_t i = 1; i <= size_; i++) {
+    copy[i] = data_[i - 1];
   }
   swap(copy);
 }
@@ -77,6 +77,11 @@ size_t topit::Vector< T >::getSize() const noexcept
   return size_;
 }
 template< class T >
+size_t topit::Vector< T >::getCapacity() const noexcept
+{
+  return capacity_;
+}
+template< class T >
 topit::Vector< T >::Vector(size_t k):
   data_(new T[k]),
   size_(k),
@@ -93,11 +98,24 @@ topit::Vector< T >::Vector(const Vector< T >& rhs):
 }
 
 template< class T >
-void topit::Vector< T >::pushBack(const T&)
+void topit::Vector< T >::pushBack(const T& val)
 {
-
+  Vector< T > tmp(size_ + 1);
+  for (size_T i = 0; i < size_; i++) {
+    tmp.data_[i] = data_[i];
+  }
+  tmp.data_[size_] = val;
+  swap(tmp);
 }
-
+template< class T > void topit::Vector< T >::popBack() noexcept
+{
+  assert(size_ > 0);
+  Vector< T > tmp(size_ - 1);
+  for (size_t i = 0; i < size_ - 1; i++) {
+    tmp.data_[i] = data_[i];
+  }
+  swap(tmp);
+}
 template< class T >
 topit::Vector< T >::Vector():
   data_(nullptr),
