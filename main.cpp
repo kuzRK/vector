@@ -88,11 +88,11 @@ int main()
     {"Default vector is not empty", testVectorWithValue},
     {"Inbound access elements", testCopyConstructor},
     {"Sizes must be equal", testElementAccess}
-    {"pushBack multiple elements in order", testPushBack},
-    {"pushFront inserts at position 0", testPushFront},
-    {"pop_back removes last element", testPopBack},
-    {"getCapacity equals getSize", testGetCapacity},
-    {"swap exchanges contents", testSwap},
+    {"Wrong order after 3 pushbacks", testPushBack},
+    {"pushFront did not insert at position 0", testPushFront},
+    {"pop_back did not remove last element", testPopBack},
+    {"Capacity does not equal Size", testGetCapacity},
+    {"swap did not exchanges contents", testSwap},
   };
   const size_t count = sizeof(tests) / sizeof(pair_t);
   std::cout << std::boolalpha;
