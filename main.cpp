@@ -37,7 +37,48 @@ bool testElementAccess()
   v.pushBack(2);
   return v[0] == 1 && v[1] == 2;
 }
-
+bool testPushBack()
+{
+  topit::Vector< int > v;
+  v.pushBack(10);
+  v.pushBack(20);
+  v.pushBack(30);
+  return v.getSize() == 3 && v[0] == 10 && v[1] == 20 && v[2] == 30;
+}
+bool testPushFront()
+{
+  topit::Vector< int > v;
+  v.pushBack(2);
+  v.pushBack(3);
+  v.pushFront(1);
+  return v.getSize() == 3 && v[0] == 1 && v[1] == 2 && v[2] == 3;
+}
+bool testPopBack()
+{
+  topit::Vector< int > v;
+  v.pushBack(1);
+  v.pushBack(2);
+  v.pushBack(3);
+  v.pop_back();
+  return v.getSize() == 2 && v[0] == 1 && v[1] == 2;
+}
+bool testGetCapacity()
+{
+  topit::Vector< int > v;
+  v.pushBack(1);
+  v.pushBack(2);
+  return v.getCapacity() == v.getSize();
+}
+bool testSwap()
+{
+  topit::Vector< int > a;
+  a.pushBack(1);
+  a.pushBack(2);
+  topit::Vector< int > b;
+  b.pushBack(9);
+  a.swap(b);
+  return a.getSize() == 1 && a[0] == 9 && b.getSize() == 2 && b[0] == 1 && b[1] == 2;
+}
 int main()
 {
   using test_t = bool(*)();
@@ -47,7 +88,11 @@ int main()
     {"Default vector is not empty", testVectorWithValue},
     {"Inbound access elements", testCopyConstructor},
     {"Sizes must be equal", testElementAccess}
-
+    {"pushBack multiple elements in order", testPushBack},
+    {"pushFront inserts at position 0", testPushFront},
+    {"pop_back removes last element", testPopBack},
+    {"getCapacity equals getSize", testGetCapacity},
+    {"swap exchanges contents", testSwap},
   };
   const size_t count = sizeof(tests) / sizeof(pair_t);
   std::cout << std::boolalpha;
